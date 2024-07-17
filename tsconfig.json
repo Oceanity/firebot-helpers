@@ -4,8 +4,12 @@
     "target": "esnext",
     "declaration": true,
     "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "baseUrl": "./",
     "paths": {
-      "@/*": ["./lib/*"]
+      "@oceanity/firebot-helpers/*": ["./dist/*"]
     }
   },
   "include": ["./lib/**/*"]
