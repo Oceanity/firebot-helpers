@@ -1,2 +1,2 @@
-export { formatMsToTimecode } from "./formatMsToTimecode";
-export { getErrorMessage } from "./getErrorMessage";
+export * from "./formatMsToTimecode";
+export * from "./getErrorMessage";
