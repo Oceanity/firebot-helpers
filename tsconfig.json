@@ -7,10 +7,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "baseUrl": "./",
-    "paths": {
-      "@oceanity/firebot-helpers/*": ["./dist/*"]
-    }
+    "typeRoots": ["./node_modules/@types/", "./types"]
   },
-  "include": ["./lib/**/*"]
+  "include": ["lib/**/*"]
 }

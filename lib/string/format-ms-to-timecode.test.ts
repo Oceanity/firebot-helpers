@@ -1,4 +1,4 @@
-import { formatMsToTimecode } from "./formatMsToTimecode";
+import { formatMsToTimecode } from "./format-ms-to-timecode";
 
 describe("msToFormattedString", () => {
   it("returns expected string value for small number", () => {

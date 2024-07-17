@@ -1,4 +1,4 @@
-import { getErrorMessage } from "./getErrorMessage";
+import { getErrorMessage } from "./get-error-message";
 
 describe("getErrorMessage", () => {
   let errorMessage: string;

@@ -1,17 +1,14 @@
 {
   "name": "@oceanity/firebot-helpers",
-  "version": "1.0.7",
+  "version": "1.0.15",
   "description": "Helper functions for my Firebot Scripts",
   "main": "./index.js",
   "types": "./index.d.ts",
-  "directories": {
-    "lib": "lib"
-  },
   "scripts": {
-    "build": "tsc && ts-node ./scripts/copyBuild.ts",
+    "build": "del-cli --force ./dist && tsc && ts-node ./scripts/copyBuild.ts",
     "test": "jest",
     "pack": "cd dist && npm pack",
-    "publish": "cd dist && npm publish --access public"
+    "deploy": "cd dist && npm publish --access public"
   },
   "repository": {
     "type": "git",
@@ -27,10 +24,12 @@
   },
   "homepage": "https://github.com/Oceanity/firebot-helpers#readme",
   "devDependencies": {
+    "@crowbartools/firebot-custom-scripts-types": "^5.60.1",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.14.11",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
+    "del-cli": "^5.1.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "fs-extra": "^11.2.0",
