@@ -1,7 +1,7 @@
 import { Trigger } from "firebot";
 import { getTriggerSource } from "./get-trigger-source";
 
-describe("getTriggerSource", () => {
+describe("string/getTriggerSource", () => {
   let trigger: Trigger;
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
 import { formatMsToTimecode } from "./format-ms-to-timecode";
 
-describe("msToFormattedString", () => {
+describe("string/msToFormattedString", () => {
   it("returns expected string value for small number", () => {
     expect(formatMsToTimecode(1000)).toBe("0:01");
   });

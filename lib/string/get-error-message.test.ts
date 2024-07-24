@@ -1,6 +1,6 @@
 import { getErrorMessage } from "./get-error-message";
 
-describe("getErrorMessage", () => {
+describe("string/getErrorMessage", () => {
   let errorMessage: string;
 
   beforeEach(() => {

@@ -1,6 +1,6 @@
 import { cleanUsername } from "./clean-username";
 
-describe("cleanUsername", () => {
+describe("string/cleanUsername", () => {
   it("returns expected string value with already cleaned username", () => {
     expect(cleanUsername("test")).toBe("test");
   });
