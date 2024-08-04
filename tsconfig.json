@@ -4,9 +4,10 @@
     "target": "esnext",
     "declaration": true,
     "outDir": "./dist",
-    "paths": {
-      "@/*": ["./lib/*"]
-    }
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types/", "./types"]
   },
-  "include": ["./lib/**/*"]
+  "include": ["lib/**/*"]
 }
