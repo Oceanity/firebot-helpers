@@ -1,18 +1,14 @@
 {
-  "name": "oceanity-firebot-helpers",
-  "version": "1.0.0",
+  "name": "@oceanity/firebot-helpers",
+  "version": "1.1.1",
   "description": "Helper functions for my Firebot Scripts",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "files": [
-    "/dist"
-  ],
-  "directories": {
-    "lib": "lib"
-  },
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {
-    "build": "tsc",
-    "test": "jest"
+    "build": "del-cli --force ./dist && tsc && ts-node ./scripts/copyBuild.ts",
+    "test": "jest",
+    "pack": "cd dist && npm pack",
+    "deploy": "cd dist && npm publish --access public"
   },
   "repository": {
     "type": "git",
@@ -28,12 +24,18 @@
   },
   "homepage": "https://github.com/Oceanity/firebot-helpers#readme",
   "devDependencies": {
+    "@crowbartools/firebot-custom-scripts-types": "^5.60.1",
+    "@types/fs-extra": "^11.0.4",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.14.11",
     "@typescript-eslint/eslint-plugin": "^7.8.0",
     "@typescript-eslint/parser": "^7.8.0",
+    "del-cli": "^5.1.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
+    "fs-extra": "^11.2.0",
+    "fuse.js": "^7.0.0",
+    "node-json-db": "^2.3.0",
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
