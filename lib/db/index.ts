@@ -136,4 +136,19 @@ export default class DbService {
       return undefined;
     }
   }
+  
+  public async delete(
+    route: string
+  ): Promise<boolean> {
+    try {
+      await this.init();
+
+      await this._db?.delete(`${route}`);
+
+      return true;
+    } catch (err) {
+      logger.error(`Failed to delete "${route}" in "${this._path}"`);
+      return false;
+    }
+  }
 }

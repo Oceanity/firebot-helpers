@@ -1,6 +1,6 @@
 {
   "name": "@oceanity/firebot-helpers",
-  "version": "1.0.17",
+  "version": "1.1.1",
   "description": "Helper functions for my Firebot Scripts",
   "main": "./index.js",
   "types": "./index.d.ts",
