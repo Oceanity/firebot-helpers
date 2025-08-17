@@ -8,6 +8,7 @@ export let httpServer: HttpServerManager;
 export let integrationManager: ScriptModules["integrationManager"];
 export let jsonDb: unknown;
 export let logger: ScriptModules["logger"];
+export let notificationManager: ScriptModules["notificationManager"];
 export let twitchApi: ScriptModules["twitchApi"];
 export let twitchChat: ScriptModules["twitchChat"];
 export let utils: ScriptModules["utils"];
@@ -21,6 +22,7 @@ export function initModules(scriptModules: ScriptModules) {
   integrationManager = scriptModules.integrationManager;
   jsonDb = scriptModules.JsonDb;
   logger = scriptModules.logger;
+  notificationManager = scriptModules.notificationManager;
   twitchApi = scriptModules.twitchApi;
   twitchChat = scriptModules.twitchChat;
   utils = scriptModules.utils;
