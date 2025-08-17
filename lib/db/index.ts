@@ -10,10 +10,10 @@ type PatchResults<T> = {
 };
 
 export default class DbService {
+  private readonly _path: string;
+  private readonly _saveOnWrite: boolean;
+  private readonly _humanReadable: boolean;
   private _ready: boolean = false;
-  private _path: string;
-  private _autoSave: boolean;
-  private _humanReadable: boolean;
   private _db?: JsonDB;
 
   public constructor(
@@ -23,7 +23,7 @@ export default class DbService {
   ) {
     if (!path.includes(__dirname)) path = resolve(__dirname, path);
     this._path = path;
-    this._autoSave = saveOnWrite;
+    this._saveOnWrite = saveOnWrite;
     this._humanReadable = humanReadable;
   }
 
@@ -31,26 +31,30 @@ export default class DbService {
     return this._ready;
   }
 
-  public async init() {
-    if (this._ready) return;
+  public async init(): Promise<JsonDB> {
+    if (this._ready && !!this._db) return this._db;
+
+    logger.info(`Creating Database file at ${this._path}...`);
+    
     await ensureDir(dirname(this._path));
 
     // @ts-expect-error ts18046
-    this._db = new jsonDb(this._path, this._autoSave, this._humanReadable);
+    this._db = new jsonDb(this._path, this._saveOnWrite, this._humanReadable);
 
     this._ready = true;
+    return this._db!;
   }
 
   public async getAsync<T>(
     route: string,
     defaults?: T | T[]
   ): Promise<T | undefined> {
-    try {
-      await this.init();
+    const db = await this.init();
 
-      return this._db?.getData(route) as T;
+    try {
+      return db.getData(route) as T;
     } catch (err) {
-      if (defaults) this._db?.push(route, defaults, true);
+      if (defaults) await db.push(route, defaults, true);
       logger.error(`Failed to get "${route}" from "${this._path}"`);
       return undefined;
     }
@@ -79,9 +83,9 @@ export default class DbService {
     override: boolean = false
   ): Promise<boolean> {
     try {
-      await this.init();
+      const db = await this.init();
 
-      await this._db?.push(route, data, override);
+      await db.push(route, data, override);
       return true;
     } catch (err) {
       logger.error(`Could not push to "${route}" in "${this._path}"`);
@@ -96,8 +100,6 @@ export default class DbService {
     defaults: T
   ): Promise<boolean> {
     try {
-      await this.init();
-
       const existing = (await this.getAsync<T>(route, defaults)) ?? defaults;
       await this.pushAsync(route, callback(existing, data), true);
       return true;
@@ -114,7 +116,7 @@ export default class DbService {
     fuseOptions?: IFuseOptions<T>
   ): Promise<PatchResults<T> | undefined> {
     try {
-      await this.init();
+      const db = await this.init();
 
       const data = await this._db?.getData(route);
       const fuse = new Fuse(data, fuseOptions);
@@ -125,7 +127,7 @@ export default class DbService {
         return undefined;
       }
 
-      await this._db?.push(`${route}[${results[0].refIndex}]`, replace);
+      await db.push(`${route}[${results[0].refIndex}]`, replace);
 
       return {
         found: results[0].item,
@@ -141,9 +143,9 @@ export default class DbService {
     route: string
   ): Promise<boolean> {
     try {
-      await this.init();
+      const db = await this.init();
 
-      await this._db?.delete(`${route}`);
+      await db.delete(`${route}`);
 
       return true;
     } catch (err) {
