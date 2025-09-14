@@ -1,8 +1,8 @@
-import { JsonDB } from "node-json-db";
 import { ensureDir } from "fs-extra";
-import { jsonDb, logger, utils } from "../firebot";
-import { dirname, resolve } from "path";
 import Fuse, { IFuseOptions } from "fuse.js";
+import { JsonDB } from "node-json-db";
+import { dirname, resolve } from "path";
+import { JsonDb, logger, utils } from "../firebot";
 
 type PatchResults<T> = {
   found: T;
@@ -35,11 +35,11 @@ export default class DbService {
     if (this._ready && !!this._db) return this._db;
 
     logger.info(`Creating Database file at ${this._path}...`);
-    
+
     await ensureDir(dirname(this._path));
 
     // @ts-expect-error ts18046
-    this._db = new jsonDb(this._path, this._saveOnWrite, this._humanReadable);
+    this._db = new JsonDb(this._path, this._saveOnWrite, this._humanReadable);
 
     this._ready = true;
     return this._db!;
@@ -138,10 +138,8 @@ export default class DbService {
       return undefined;
     }
   }
-  
-  public async delete(
-    route: string
-  ): Promise<boolean> {
+
+  public async delete(route: string): Promise<boolean> {
     try {
       const db = await this.init();
 
