@@ -1,2 +1,2 @@
-export * from "./chatFeedAlert";
+export * from "./filter-factory";
 export * from "./modules";
