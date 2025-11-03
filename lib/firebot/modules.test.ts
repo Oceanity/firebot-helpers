@@ -5,18 +5,39 @@ describe("firebot/modules", () => {
 
   beforeEach(() => {
     testModules = {
+      childProcess: { childProcessMethod: () => {} } as any,
+      commandManager: { commandManagerMethod: () => {} } as any,
+      conditionManager: { conditionManagerMethod: () => {} } as any,
+      counterManager: { counterManagerMethod: () => {} } as any,
+      currencyDb: { currencyDbMethod: () => {} } as any,
+      currencyManager: { currencyManagerMethod: () => {} } as any,
+      customVariableManager: { customVariableManagerMethod: () => {} } as any,
       effectManager: { effectManagerMethod: () => {} } as any,
       effectRunner: { effectRunnerMethod: () => {} } as any,
-      eventManager: { eventManagerMethod: () => {} } as any,
+      eventFilterFactory: { eventFilterFactoryMethod: () => {} } as any,
       eventFilterManager: { eventFilterMethod: () => {} } as any,
+      eventManager: { eventManagerMethod: () => {} } as any,
+      firebotRolesManager: { firebotRolesManagerMethod: () => {} } as any,
+      frontendCommunicator: { frontendCommunicatorMethod: () => {} } as any,
+      fs: { fsMethod: () => {} } as any,
+      gameManager: { gameManagerMethod: () => {} } as any,
+      howler: { howlerMethod: () => {} } as any,
       httpServer: { httpServerMethod: () => {} } as any,
       integrationManager: { integrationManagerMethod: () => {} } as any,
       JsonDb: { JsonDbMethod: () => {} } as any,
       logger: { loggerMethod: () => {} } as any,
+      moment: { momentMethod: () => {} } as any,
       notificationManager: { notificationManagerMethod: () => {} } as any,
+      overlayWidgetConfigManager: {
+        overlayWidgetConfigManagerMethod: () => {},
+      } as any,
+      overlayWidgetsManager: { overlayWidgetsManagerMethod: () => {} } as any,
+      path: { pathMethod: () => {} } as any,
+      quotesManager: { quotesManagerMethod: () => {} } as any,
+      replaceVariableFactory: { replaceVariableFactoryMethod: () => {} } as any,
       replaceVariableManager: { replaceVariableManagerMethod: () => {} } as any,
       twitchApi: { twitchApiMethod: () => {} } as any,
-      twitchChat: { twitchChatMethod: () => {} } as any,
+      uiExtensionManager: { uiExtensionManagerMethod: () => {} } as any,
       utils: { utilsMethod: () => {} } as any,
     } as ScriptModules;
   });
@@ -59,6 +80,34 @@ describe("firebot/modules", () => {
     expect(hasUndefinedModules).toEqual(false);
   });
 
+  it("properly initializes childProcess", async () => {
+    await testModuleInit("childProcess");
+  });
+
+  it("properly initializes commandManager", async () => {
+    await testModuleInit("commandManager");
+  });
+
+  it("properly initializes conditionManager", async () => {
+    await testModuleInit("conditionManager");
+  });
+
+  it("properly initializes counterManager", async () => {
+    await testModuleInit("counterManager");
+  });
+
+  it("properly initializes currencyDb", async () => {
+    await testModuleInit("currencyDb");
+  });
+
+  it("properly initializes currencyManager", async () => {
+    await testModuleInit("currencyManager");
+  });
+
+  it("properly initializes customVariableManager", async () => {
+    await testModuleInit("customVariableManager");
+  });
+
   it("properly initializes effectManager", async () => {
     await testModuleInit("effectManager");
   });
@@ -67,12 +116,36 @@ describe("firebot/modules", () => {
     await testModuleInit("effectRunner");
   });
 
-  it("properly initializes eventManager", async () => {
-    await testModuleInit("eventManager");
+  it("properly initializes eventFilterFactory", async () => {
+    await testModuleInit("eventFilterFactory");
   });
 
   it("properly initializes eventFilterManager", async () => {
     await testModuleInit("eventFilterManager");
+  });
+
+  it("properly initializes eventManager", async () => {
+    await testModuleInit("eventManager");
+  });
+
+  it("properly initializes firebotRolesManager", async () => {
+    await testModuleInit("firebotRolesManager");
+  });
+
+  it("properly initializes frontendCommunicator", async () => {
+    await testModuleInit("frontendCommunicator");
+  });
+
+  it("properly initializes fs", async () => {
+    await testModuleInit("fs");
+  });
+
+  it("properly initializes gameManager", async () => {
+    await testModuleInit("gameManager");
+  });
+
+  it("properly initializes howler", async () => {
+    await testModuleInit("howler");
   });
 
   it("properly initializes httpServer", async () => {
@@ -91,8 +164,32 @@ describe("firebot/modules", () => {
     await testModuleInit("logger");
   });
 
+  it("properly initializes moment", async () => {
+    await testModuleInit("moment");
+  });
+
   it("properly initializes notificationManager", async () => {
     await testModuleInit("notificationManager");
+  });
+
+  it("properly initializes overlayWidgetConfigManager", async () => {
+    await testModuleInit("overlayWidgetConfigManager");
+  });
+
+  it("properly initializes overlayWidgetsManager", async () => {
+    await testModuleInit("overlayWidgetsManager");
+  });
+
+  it("properly initializes path", async () => {
+    await testModuleInit("path");
+  });
+
+  it("properly initializes quotesManager", async () => {
+    await testModuleInit("quotesManager");
+  });
+
+  it("properly initializes replaceVariableFactory", async () => {
+    await testModuleInit("replaceVariableFactory");
   });
 
   it("properly initializes replaceVariableManager", async () => {
@@ -103,8 +200,8 @@ describe("firebot/modules", () => {
     await testModuleInit("twitchApi");
   });
 
-  it("properly initializes twitchChat", async () => {
-    await testModuleInit("twitchChat");
+  it("properly initializes uiExtensionManager", async () => {
+    await testModuleInit("uiExtensionManager");
   });
 
   it("properly initializes utils", async () => {
