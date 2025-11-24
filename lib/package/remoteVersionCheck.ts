@@ -1,11 +1,21 @@
 import { logger } from "../firebot";
 
+export type RemoteVersionCheckResponse = {
+  success: boolean;
+  isRemoteNewer: boolean;
+  localVersion: string;
+  remoteVersion?: string;
+};
+
 export async function remoteVersionCheck(
   localVersion: string,
   remotePackageUrl: string
-) {
-  let remoteVersion: string | null = null;
-  let remoteIsNewer = false;
+): Promise<RemoteVersionCheckResponse> {
+  const result: RemoteVersionCheckResponse = {
+    success: false,
+    isRemoteNewer: false,
+    localVersion,
+  };
 
   try {
     const githubPackageResponse = await fetch(remotePackageUrl);
@@ -22,16 +32,16 @@ export async function remoteVersionCheck(
       throw new Error(githubPackage.error);
     }
 
-    remoteVersion = githubPackage.version;
+    result.remoteVersion = githubPackage.version;
 
-    if (!remoteVersion) {
+    if (!result.remoteVersion) {
       throw new Error(
         "Fetched package file does not have a `version` attribute."
       );
     }
 
     const splitLocal = localVersion.split(".");
-    const splitRemote = remoteVersion.split(".");
+    const splitRemote = result.remoteVersion.split(".");
 
     for (let i = 0; i < Math.min(splitLocal.length, splitRemote.length); i++) {
       // Ensure that both versions have the same number of sections
@@ -43,7 +53,7 @@ export async function remoteVersionCheck(
       const remoteInt = parseInt(splitRemote[i]);
 
       if (remoteInt > localInt || splitRemote[i] > splitLocal[i]) {
-        remoteIsNewer = true;
+        result.isRemoteNewer = true;
         break;
       } else if (remoteInt < localInt || splitRemote[i] < splitLocal[i]) {
         break;
@@ -56,5 +66,5 @@ export async function remoteVersionCheck(
     );
   }
 
-  return remoteIsNewer;
+  return result;
 }
