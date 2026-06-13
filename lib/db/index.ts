@@ -1,8 +1,8 @@
+import firebot from "@crowbartools/firebot-types";
 import { ensureDir } from "fs-extra";
 import Fuse, { IFuseOptions } from "fuse.js";
 import { JsonDB } from "node-json-db";
 import { dirname, resolve } from "path";
-import { JsonDb, logger, utils } from "../firebot";
 
 type PatchResults<T> = {
   found: T;
@@ -19,7 +19,7 @@ export default class DbService {
   public constructor(
     path: string,
     saveOnWrite: boolean = true,
-    humanReadable: boolean = false
+    humanReadable: boolean = false,
   ) {
     if (!path.includes(__dirname)) path = resolve(__dirname, path);
     this._path = path;
@@ -34,7 +34,7 @@ export default class DbService {
   public async init(): Promise<JsonDB> {
     if (this._ready && !!this._db) return this._db;
 
-    logger.info(`Creating Database file at ${this._path}...`);
+    firebot.logger.info(`Creating Database file at ${this._path}...`);
 
     await ensureDir(dirname(this._path));
 
@@ -47,7 +47,7 @@ export default class DbService {
 
   public async getAsync<T>(
     route: string,
-    defaults?: T | T[]
+    defaults?: T | T[],
   ): Promise<T | undefined> {
     const db = await this.init();
 
@@ -55,32 +55,32 @@ export default class DbService {
       return db.getData(route) as T;
     } catch (err) {
       if (defaults) await db.push(route, defaults, true);
-      logger.error(`Failed to get "${route}" from "${this._path}"`);
+      firebot.logger.error(`Failed to get "${route}" from "${this._path}"`);
       return undefined;
     }
   }
 
   public async getRandom<T>(
     route: string,
-    defaults?: T[]
+    defaults?: T[],
   ): Promise<T | undefined> {
-    const { getRandomInt } = utils;
-
     const choices = await this.getAsync<T[]>(route, defaults);
 
     if (!choices || !choices.length) {
-      logger.error(`Failed to get random "${route}" from "${this._path}"`);
+      firebot.logger.error(
+        `Failed to get random "${route}" from "${this._path}"`,
+      );
       return undefined;
     }
 
-    const random = getRandomInt(0, choices.length - 1);
+    const random = Math.floor(Math.random() * choices.length);
     return choices[random];
   }
 
   public async pushAsync<T>(
     route: string,
     data: T,
-    override: boolean = false
+    override: boolean = false,
   ): Promise<boolean> {
     try {
       const db = await this.init();
@@ -88,7 +88,7 @@ export default class DbService {
       await db.push(route, data, override);
       return true;
     } catch (err) {
-      logger.error(`Could not push to "${route}" in "${this._path}"`);
+      firebot.logger.error(`Could not push to "${route}" in "${this._path}"`);
       return false;
     }
   }
@@ -97,14 +97,14 @@ export default class DbService {
     route: string,
     data: T,
     callback: (oldData: T, newData: T) => T,
-    defaults: T
+    defaults: T,
   ): Promise<boolean> {
     try {
       const existing = (await this.getAsync<T>(route, defaults)) ?? defaults;
       await this.pushAsync(route, callback(existing, data), true);
       return true;
     } catch (err) {
-      logger.error(`Could not increment "${route}" in "${this._path}"`);
+      firebot.logger.error(`Could not increment "${route}" in "${this._path}"`);
       return false;
     }
   }
@@ -113,7 +113,7 @@ export default class DbService {
     route: string,
     search: string,
     replace: T,
-    fuseOptions?: IFuseOptions<T>
+    fuseOptions?: IFuseOptions<T>,
   ): Promise<PatchResults<T> | undefined> {
     try {
       const db = await this.init();
@@ -123,7 +123,7 @@ export default class DbService {
       const results = fuse.search(search);
 
       if (!results) {
-        logger.error("Could not find item to update");
+        firebot.logger.error("Could not find item to update");
         return undefined;
       }
 
@@ -134,7 +134,7 @@ export default class DbService {
         replaced: replace,
       };
     } catch (err) {
-      logger.error(`Failed to update "${route}" in "${this._path}"`);
+      firebot.logger.error(`Failed to update "${route}" in "${this._path}"`);
       return undefined;
     }
   }
@@ -147,7 +147,7 @@ export default class DbService {
 
       return true;
     } catch (err) {
-      logger.error(`Failed to delete "${route}" in "${this._path}"`);
+      firebot.logger.error(`Failed to delete "${route}" in "${this._path}"`);
       return false;
     }
   }

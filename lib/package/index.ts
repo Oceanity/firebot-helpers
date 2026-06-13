@@ -1,1 +1,1 @@
-export * from "./remoteVersionCheck";
+export { remoteVersionCheck } from "./remoteVersionCheck";

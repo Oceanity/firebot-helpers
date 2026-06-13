@@ -1,4 +1,4 @@
-import { Trigger } from "firebot";
+import { Trigger } from "@crowbartools/firebot-types";
 import { getTriggerSource } from "./get-trigger-source";
 
 describe("string/getTriggerSource", () => {

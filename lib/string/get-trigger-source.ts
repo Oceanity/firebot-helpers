@@ -1,7 +1,6 @@
-import { Trigger } from "firebot";
+import { Trigger } from "@crowbartools/firebot-types";
 
 export const getTriggerSource = (trigger: Trigger): string => {
-  //logger.info(JSON.stringify(trigger));
   const { metadata, type } = trigger;
   switch (type) {
     case "command":

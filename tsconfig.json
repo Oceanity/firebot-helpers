@@ -3,11 +3,13 @@
     "module": "commonjs",
     "target": "esnext",
     "declaration": true,
+    "rootDir": "./lib",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "typeRoots": ["./node_modules/@types/", "lib/types"],
+    "types": ["jest", "node"]
   },
-  "include": ["lib/**/*"],
+  "include": ["lib/**/*"]
 }

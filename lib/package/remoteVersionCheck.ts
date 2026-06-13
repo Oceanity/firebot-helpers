@@ -1,8 +1,8 @@
-import { logger } from "../firebot";
+import firebot from "@crowbartools/firebot-types";
 
 export async function remoteVersionCheck(
   localVersion: string,
-  remotePackageUrl: string
+  remotePackageUrl: string,
 ) {
   let remoteVersion: string | null = null;
   let remoteIsNewer = false;
@@ -12,7 +12,7 @@ export async function remoteVersionCheck(
 
     if (!githubPackageResponse.ok) {
       throw new Error(
-        `Fetching remote package.json returned Status ${githubPackageResponse.status} ${githubPackageResponse.statusText}`
+        `Fetching remote package.json returned Status ${githubPackageResponse.status} ${githubPackageResponse.statusText}`,
       );
     }
 
@@ -26,7 +26,7 @@ export async function remoteVersionCheck(
 
     if (!remoteVersion) {
       throw new Error(
-        "Fetched package file does not have a `version` attribute."
+        "Fetched package file does not have a `version` attribute.",
       );
     }
 
@@ -50,9 +50,9 @@ export async function remoteVersionCheck(
       }
     }
   } catch (error) {
-    logger.error(
+    firebot.logger.error(
       `Error checking remote package version at ${remotePackageUrl}`,
-      error
+      error,
     );
   }
 

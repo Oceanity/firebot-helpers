@@ -1,7 +1,7 @@
 {
   "name": "@oceanity/firebot-helpers",
-  "version": "1.1.6",
-  "description": "Helper functions for my Firebot Scripts",
+  "version": "2.0.0",
+  "description": "Helper functions for my Firebot Plugins",
   "main": "./index.js",
   "types": "./index.d.ts",
   "scripts": {
@@ -18,26 +18,28 @@
     "firebot"
   ],
   "author": "oceanity",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "bugs": {
     "url": "https://github.com/Oceanity/firebot-helpers/issues"
   },
   "homepage": "https://github.com/Oceanity/firebot-helpers#readme",
   "devDependencies": {
-    "@crowbartools/firebot-custom-scripts-types": "^5.63.2",
+    "@crowbartools/firebot-types": "^5.67.0-alpha22",
     "@types/fs-extra": "^11.0.4",
-    "@types/jest": "^29.5.14",
-    "@types/node": "^20.19.14",
-    "@typescript-eslint/eslint-plugin": "^7.18.0",
-    "@typescript-eslint/parser": "^7.18.0",
-    "del-cli": "^5.1.0",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^9.1.2",
-    "fs-extra": "^11.3.1",
-    "fuse.js": "^7.1.0",
-    "node-json-db": "^2.3.1",
-    "ts-jest": "^29.4.1",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.13.2",
+    "@typescript-eslint/eslint-plugin": "^8.61.0",
+    "@typescript-eslint/parser": "^8.61.0",
+    "del-cli": "^7.0.0",
+    "eslint": "^10.5.0",
+    "eslint-config-prettier": "^10.1.8",
+    "fs-extra": "^11.3.5",
+    "fuse.js": "^7.4.2",
+    "jest": "^30.4.2",
+    "node": "^24.16.0",
+    "node-json-db": "^2.6.0",
+    "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2"
+    "typescript": "^6.0.3"
   }
 }

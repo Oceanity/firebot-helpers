@@ -1,4 +1,4 @@
-export * from "./clean-username";
-export * from "./format-ms-to-timecode";
-export * from "./get-error-message";
-export * from "./get-trigger-source";
+export { cleanUsername } from "./clean-username";
+export { formatMsToTimecode } from "./format-ms-to-timecode";
+export { getErrorMessage } from "./get-error-message";
+export { getTriggerSource } from "./get-trigger-source";
